@@ -62,21 +62,11 @@ module.exports = {
 			{
 				'blankLine': 'always',
 				'prev': '*',
-				'next': 'if'
+				'next': ['if', 'try', 'return'] 
 			},
 			{
 				'blankLine': 'always',
-				'prev': '*',
-				'next': 'try'
-			},
-			{
-				'blankLine': 'always',
-				'prev': 'block-like',
-				'next': 'const'
-			},
-			{
-				'blankLine': 'always',
-				'prev': 'expression',
+				'prev': ['block-like', 'expression'],
 				'next': 'const'
 			},
 			{

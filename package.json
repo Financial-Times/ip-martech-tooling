@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "Shareable team-wide eslint config for Martech",
   "main": "index.js",
-  "devDependencies": {},
   "peerDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@babel/eslint-plugin": "^7.13.15",
-    "eslint": ">= 7",
+    "eslint": "^8.13.0",
     "eslint-plugin-destructuring-newline": "0.0.2",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.3.5"
+    "eslint-plugin-jest": "^24.7.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

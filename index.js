@@ -80,7 +80,7 @@ module.exports = {
 			'before': true,
 			'after': true
 		}],
-		'comma-dangle': ['error', 'never'],
+		'comma-dangle': ['only-multiline'],
 		'comma-spacing': ['error', {
 			'before': false,
 			'after': true

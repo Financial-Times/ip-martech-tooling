@@ -8,7 +8,7 @@
     "@babel/eslint-plugin": "^7.17.7",
     "@babel/plugin-syntax-class-properties":  "7.12.13",
     "eslint": "^8.13.0",
-    "eslint-plugin-destructuring-newline": "0.0.2",
+    "eslint-plugin-destructuring-newline": "^0.0.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.4"
   },

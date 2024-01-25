@@ -3,11 +3,14 @@
 This repo contains different shareable tooling and other pieces of common code or similar for Martech engineers.
 Currently, there is a team-wide `eslint-config` available on the `eslint-config-martech` branch. The `main` branch is an orphaned branch, so contains different content from our `eslint`-related branch.
 
+The main branch also contains useful scripts.
+
 ## Contents
 
 - [Contents](#contents)
 - [Branches](#branches)
 - [Contact](#contact)
+
 
 ## Branches
 

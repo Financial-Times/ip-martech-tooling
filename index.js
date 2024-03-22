@@ -13,7 +13,8 @@ module.exports = {
 	],
 	'globals': {
 		'Atomics': 'readonly',
-		'SharedArrayBuffer': 'readonly'
+		'SharedArrayBuffer': 'readonly',
+		'vi': true
 	},
 	'parser': '@babel/eslint-parser',
 	'parserOptions': {

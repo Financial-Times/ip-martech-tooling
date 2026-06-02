@@ -1,24 +1,78 @@
 # Martech tooling
 
-This repo contains different shareable tooling and other pieces of common code or similar for Martech engineers.
-Currently, there is a team-wide `eslint-config` available on the `eslint-config-martech` branch. The `main` branch is an orphaned branch, so contains different content from our `eslint`-related branch.
-
-The main branch also contains useful scripts.
+This repo contains shareable tooling and common packages for Martech engineers.
 
 ## Contents
 
 - [Contents](#contents)
-- [Branches](#branches)
+- [Workspace layout](#workspace-layout)
+- [Install](#install)
+- [Commands](#commands)
+- [Targeting a single workspace](#targeting-a-single-workspace)
+- [Publishing](#publishing)
 - [Contact](#contact)
 
+## Workspace layout
 
-## Branches
+This repo uses npm workspaces for packages in `packages/*`.
 
-The idea is that we can create orphan branches for use as `npm` packages, so we consolidate and can easily share common tooling for our different repos and projects.
+Current workspace packages:
 
-Currently, we only have one other branch of interest:
-- `eslint-config-martech`
+- `packages/fetch-with-retries`
+
+The `scripts/` directory remains standalone and is not part of the workspace graph.
+
+## Install
+
+Install dependencies from the repo root:
+
+```bash
+npm install
+```
+
+## Commands
+
+Run package checks from the repo root:
+
+```bash
+npm test
+npm run lint
+npm run test:unit
+npm run test:end-to-end
+npm run test:types
+```
+
+## Targeting a single workspace
+
+Run commands for `packages/fetch-with-retries` only:
+
+```bash
+npm run test -w packages/fetch-with-retries
+npm run test:types -w packages/fetch-with-retries
+```
+
+## Publishing
+
+`packages/fetch-with-retries` is configured to publish to Cloudsmith from CircleCI.
+
+CircleCI project settings must include:
+
+```bash
+CLOUDSMITH_SERVICE_ACCOUNT=<your-service-account-id>
+```
+
+The publish workflow is triggered by tags in this format:
+
+```bash
+fetch-with-retries-v1.0.0
+```
+
+Publishing is package-scoped and runs:
+
+```bash
+npm publish --workspace packages/fetch-with-retries
+```
 
 ## Contact
 
-If you have any questions, or need any help, either [raise an issue](https://github.com/Financial_times/ip-martech-tooling/issues), speak to [us on Slack](https://financialtimes.slack.com/archives/C017GUUCB3P), or via [email](mailto:ip.martech@ft.com).
+If you have any questions, or need any help, either [raise an issue](https://github.com/Financial-Times/ip-martech-tooling/issues), speak to [us on Slack](https://financialtimes.slack.com/archives/C017GUUCB3P), or via [email](mailto:ip.martech@ft.com).

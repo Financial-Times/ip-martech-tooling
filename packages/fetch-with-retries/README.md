@@ -12,6 +12,7 @@ Retry native Node `fetch` calls with a shared default policy, configurable backo
     - [`options.retryPatchRequests`](#optionsretrypatchrequests)
   - [Structured log events](#structured-log-events)
   - [TypeScript](#typescript)
+  - [Publishing](#publishing)
 - [License](#license)
 
 ## Usage
@@ -183,6 +184,25 @@ Retries exhausted event:
     reason: 'fetch-error',
 }
 ```
+
+### Publishing
+
+Maintainers publish this package through CircleCI rather than from a local machine.
+
+1. Update the version in `package.json`.
+2. Update `CHANGELOG.md` for that version.
+3. Open a PR to get those changes merged into the main branch.
+4. When merged, create a GitHub release targeting the release commit, and use a matching tag:
+
+```
+fetch-with-retries-v1.0.0
+```
+
+5. CircleCI will run the tagged publish workflow.
+6. If tests and lint pass, CircleCI publishes `@financial-times/martech-fetch-with-retries` to the `financial-times-internal-releases` Cloudsmith repository.
+
+> [!IMPORTANT]
+> The tag version must match the package version in `package.json`. The CircleCI workflow is triggered by the git tag itself, not by a GitHub release title.
 
 ## License
 

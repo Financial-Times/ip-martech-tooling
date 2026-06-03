@@ -1,6 +1,7 @@
 version: 2.1
 
 orbs:
+  cloudsmith-npm: ft-circleci-orbs/cloudsmith-npm@1.0
   node: circleci/node@4.6.0
 
 references:
@@ -18,6 +19,18 @@ references:
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
+
+  filters_release_build: &filters_release_build
+    tags:
+      only:
+        # Although the CI setup here is mostly from dotcom-reliability-kit,
+        # we’re simplifying this tagging filter for now while we only have one
+        # package. The dotcom kit uses \w instead of hard-coding the package
+        # name, then runs a script (circleci-publish.sh) to figure out which
+        # package to publish. We could adopt that later if we like!
+        - /^fetch-with-retries-v\d+\.\d+\.\d+$/
+    branches:
+      ignore: /.*/
 
 jobs:
   install:
@@ -50,6 +63,16 @@ jobs:
           name: Run repo linting
           command: npm run lint
 
+  publish:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - cloudsmith-npm/configure_npm:
+          repository: financial-times-internal-releases
+      - run:
+          name: Publish fetch-with-retries to Cloudsmith
+          command: npm publish --workspace packages/fetch-with-retries
+
 workflows:
   test-and-lint:
     jobs:
@@ -69,3 +92,33 @@ workflows:
           name: lint-v24.15
           requires:
             - install-v24.15
+  publish:
+    jobs:
+      - install:
+          filters:
+            <<: *filters_release_build
+          name: install-publish-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: ["26.2", "24.15", "22.22"]
+      - test:
+          filters:
+            <<: *filters_release_build
+          name: test-publish-v<< matrix.node-version >>
+          requires:
+            - install-publish-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: ["26.2", "24.15", "22.22"]
+      - lint:
+          filters:
+            <<: *filters_release_build
+          name: lint-publish-v24.15
+          requires:
+            - install-publish-v24.15
+      - publish:
+          filters:
+            <<: *filters_release_build
+          requires:
+            - test-publish-v24.15
+            - lint-publish-v24.15

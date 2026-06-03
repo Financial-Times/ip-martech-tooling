@@ -37,25 +37,24 @@ npm run test -w packages/fetch-with-retries
 
 ## Publishing
 
-`packages/fetch-with-retries` is configured to publish to Cloudsmith from CircleCI.
+Packages (e.g. `packages/fetch-with-retries`) are configured to publish from CircleCI to Cloudsmith after creating a GitHub release.
 
-CircleCI project settings must include:
+Publishing flow:
 
-```bash
-CLOUDSMITH_SERVICE_ACCOUNT=<your-service-account-id>
+1. Update the package version, e.g. `packages/fetch-with-retries/package.json`.
+2. Update the CHANGELOG for that version, e.g. `packages/fetch-with-retries/CHANGELOG.md`.
+3. Open a PR to get those changes merged into the main branch.
+4. When merged, create a GitHub release targeting the release commit, and use a matching tag in this format:
+
 ```
-
-The publish workflow is triggered by tags in this format:
-
-```bash
 fetch-with-retries-v1.0.0
 ```
 
-Publishing is package-scoped and runs:
+5. CircleCI will run the publish workflow for that tag.
+6. If tests and lint pass, CircleCI publishes the package to the `financial-times-internal-releases` Cloudsmith repository.
 
-```bash
-npm publish --workspace packages/fetch-with-retries
-```
+> [!IMPORTANT]
+> The tag version must match the package version in your `package.json`. The CircleCI workflow is triggered by the git tag itself, not by a GitHub release title.
 
 ## Contact
 

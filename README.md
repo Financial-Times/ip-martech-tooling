@@ -22,9 +22,10 @@ npm install
 
 ## Commands
 
-Run workspace tests from the repo root:
+Run repo checks from the repo root:
 
 ```bash
+npm run lint
 npm test
 ```
 

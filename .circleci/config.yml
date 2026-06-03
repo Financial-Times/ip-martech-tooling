@@ -42,8 +42,16 @@ jobs:
           name: Run repo tests
           command: npm test
 
+  lint:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run repo linting
+          command: npm run lint
+
 workflows:
-  test:
+  test-and-lint:
     jobs:
       - install:
           name: install-v<< matrix.node-version >>
@@ -57,3 +65,7 @@ workflows:
           matrix:
             parameters:
               node-version: ["26.2", "24.15", "22.22"]
+      - lint:
+          name: lint-v24.15
+          requires:
+            - install-v24.15

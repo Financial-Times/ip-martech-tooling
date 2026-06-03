@@ -1,6 +1,7 @@
 {
   "name": "ip-martech-tooling",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
   "description": "Shareable tooling and common packages for Martech engineers.",
   "repository": {
@@ -14,7 +15,13 @@
     "packages/*"
   ],
   "scripts": {
+    "lint": "biome check",
     "test": "npm run test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "@dotcom-reliability-kit/biome-config": "^1.0.0",
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": "^22.12 || ^24 || ^26"

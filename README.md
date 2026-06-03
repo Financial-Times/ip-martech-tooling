@@ -1,24 +1,39 @@
 # Martech tooling
 
-This repo contains different shareable tooling and other pieces of common code or similar for Martech engineers.
-Currently, there is a team-wide `eslint-config` available on the `eslint-config-martech` branch. The `main` branch is an orphaned branch, so contains different content from our `eslint`-related branch.
+This repo contains shareable tooling and common packages for Martech engineers.
 
-The main branch also contains useful scripts.
+## Workspace layout
 
-## Contents
+This repo uses npm workspaces for packages in `packages/*`.
 
-- [Contents](#contents)
-- [Branches](#branches)
-- [Contact](#contact)
+Current workspace packages:
 
+- `packages/workspace-smoke-test`
 
-## Branches
+The `scripts/` directory remains standalone and is not part of the workspace graph.
 
-The idea is that we can create orphan branches for use as `npm` packages, so we consolidate and can easily share common tooling for our different repos and projects.
+## Install
 
-Currently, we only have one other branch of interest:
-- `eslint-config-martech`
+Install dependencies from the repo root:
+
+```bash
+npm install
+```
+
+## Commands
+
+Run workspace tests from the repo root:
+
+```bash
+npm test
+```
+
+Target the smoke-test package directly:
+
+```bash
+npm run test -w packages/workspace-smoke-test
+```
 
 ## Contact
 
-If you have any questions, or need any help, either [raise an issue](https://github.com/Financial_times/ip-martech-tooling/issues), speak to [us on Slack](https://financialtimes.slack.com/archives/C017GUUCB3P), or via [email](mailto:ip.martech@ft.com).
+If you have any questions, or need any help, either [raise an issue](https://github.com/Financial-Times/ip-martech-tooling/issues), speak to [us on Slack](https://financialtimes.slack.com/archives/C017GUUCB3P), or via [email](mailto:ip.martech@ft.com).

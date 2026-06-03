@@ -1,0 +1,32 @@
+{
+  "name": "@financial-times/martech-fetch-with-retries",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Retry fetch requests with configurable backoff.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Financial-Times/ip-martech-tooling.git",
+    "directory": "packages/fetch-with-retries"
+  },
+  "homepage": "https://github.com/Financial-Times/ip-martech-tooling/tree/main/packages/fetch-with-retries#readme",
+  "bugs": "https://github.com/Financial-Times/ip-martech-tooling/issues",
+  "license": "MIT",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:end-to-end && npm run test:types",
+    "test:unit": "node --test --experimental-test-module-mocks --experimental-test-coverage --test-coverage-exclude='test/unit/**/*' --test-coverage-branches=100 --test-coverage-functions=100 --test-coverage-lines=100 'test/unit/**/*.spec.js'",
+    "test:end-to-end": "node --test 'test/end-to-end/**/*.spec.js'",
+    "test:types": "tsc --noEmit -p test/typescript/tsconfig.json"
+  },
+  "engines": {
+    "node": "^22.12 || ^24 || ^26"
+  },
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./lib/index.js"
+    }
+  },
+  "devDependencies": {
+    "@dotcom-reliability-kit/logger": "^3.1.4"
+  }
+}

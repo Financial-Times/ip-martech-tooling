@@ -1,0 +1,71 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.6.0
+
+references:
+  container_config_node: &container_config_node
+    working_directory: ~/project/build
+    docker:
+      - image: cimg/node:<< parameters.node-version >>
+    parameters:
+      node-version:
+        default: "24.15"
+        type: string
+
+  workspace_root: &workspace_root ~/project
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+jobs:
+  install:
+    <<: *container_config_node
+    steps:
+      - checkout
+      - node/install-npm:
+          version: "11.7.0"
+      - run:
+          name: Install project dependencies
+          command: npm ci
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - build
+
+  test:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run repo tests
+          command: npm test
+
+  lint:
+    <<: *container_config_node
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run repo linting
+          command: npm run lint
+
+workflows:
+  test-and-lint:
+    jobs:
+      - install:
+          name: install-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: ["26.2", "24.15", "22.22"]
+      - test:
+          name: test-v<< matrix.node-version >>
+          requires:
+            - install-v<< matrix.node-version >>
+          matrix:
+            parameters:
+              node-version: ["26.2", "24.15", "22.22"]
+      - lint:
+          name: lint-v24.15
+          requires:
+            - install-v24.15
